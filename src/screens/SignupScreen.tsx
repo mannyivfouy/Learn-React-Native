@@ -7,6 +7,7 @@ export default function SignupScreen() {
       <Text style={style.subtitle}>Sign Up To Get Start</Text>
 
       <TextInput placeholder="Fullname" style={style.input}></TextInput>
+
       <TextInput placeholder="Email" style={style.input}></TextInput>
       <TextInput placeholder="Password" style={style.input}></TextInput>
 
@@ -47,6 +48,11 @@ const style = StyleSheet.create({
     padding: 12,
     borderRadius: 10,
     marginBottom: 15
+  },
+
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   button: {
