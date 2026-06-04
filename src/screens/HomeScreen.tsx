@@ -1,34 +1,114 @@
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from "react";
 
 export default function HomeScreen() {
+  const [selectedFilter, setSelectedFilter] = useState("All");
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>
-          SETEC E-Learning
+          SALA ENROLLMENT
         </Text>
 
         <View style={styles.profileContainer}>
-          <Image source={require('../../assets/meme.jpg')} style={styles.profileImage}/>
+          <Image source={require('../../assets/meme.jpg')} style={styles.profileImage} />
         </View>
       </View>
       <View>
         <Text style={styles.subtitle}>
-          Begin Your Education With Us,
-        </Text>
-        <Text style={styles.subtitle}>
-          End With Job Opportunity
+          Find Your Favorite University & Major
         </Text>
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>
-          Web Development
-        </Text>
-        <Text style={styles.cardDescription}>
-          HTML
-        </Text>
+      <View style={styles.searchContainer}>
+        <View style={styles.searchBar}>
+          <Ionicons name="search" size={20} color="gray" />
+          <TextInput placeholder="Search University" style={styles.searchInput} />
+        </View>
+      </View>
+
+      <View style={styles.filterRow}>
+        {["All", "University", "Institute"].map((item) => (
+          <TouchableOpacity
+            key={item}
+            style={[styles.filterChip, selectedFilter === item && styles.filterChipActive]} onPress={() => setSelectedFilter(item)}
+          >
+            <Text style={[styles.filterText, selectedFilter === item && styles.filterTextActive]}>
+              {item}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={styles.cardContainer}>
+        <View style={styles.cardContainerHeader}>
+
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Ionicons name="flame" size={18} color="orange" />
+            <Text style={{ marginLeft: 5, fontWeight: "bold" }}>
+              Popular
+            </Text>
+          </View>
+
+          <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={{ color: "#007A6D", fontWeight: "600" }}>
+              Explore More
+            </Text>
+
+            <Ionicons
+              name="arrow-forward-outline"
+              size={16}
+              color="#007A6D"
+              style={{ marginLeft: 4 }}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.card}>
+          <ImageBackground
+            source={require("../../assets/setec.webp")}
+            style={styles.imageBackground}
+            imageStyle={{ borderRadius: 12 }}
+          >
+            <View style={styles.overlay}>
+              <Text style={styles.cardTitle}>
+                Royal University of Phnom Penh
+              </Text>
+              <View style={styles.cardDescription}>
+                <Text style={styles.textDescription}>
+                  Public University
+                </Text>
+                <Text style={styles.textPrice}>
+                  580$ - 780$
+                </Text>
+              </View>
+            </View>
+          </ImageBackground>
+        </View>
+
+        <View style={styles.card}>
+          <ImageBackground
+            source={require("../../assets/rupp.jpg")}
+            style={styles.imageBackground}
+            imageStyle={{ borderRadius: 12 }}
+          >
+            <View style={styles.overlay}>
+              <Text style={styles.cardTitle}>
+                Royal University of Phnom Penh
+              </Text>
+              <View style={styles.cardDescription}>
+                <Text style={styles.textDescription}>
+                  Public University
+                </Text>
+                <Text style={styles.textPrice}>
+                  300$ - 2000$
+                </Text>
+              </View>
+            </View>
+          </ImageBackground>
+        </View>
       </View>
     </View>
   )
@@ -37,15 +117,15 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#CDECE7',
     padding: 20,
-    marginTop: 50,
   },
 
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 50,
   },
 
   title: {
@@ -61,10 +141,10 @@ const styles = StyleSheet.create({
   },
 
   profileContainer: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     backgroundColor: "#F5F5F5",
-    borderColor: "#747070",
+    borderColor: "#007A6D",
     borderWidth: 2,
     borderRadius: 50,
     justifyContent: "center",
@@ -72,27 +152,115 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
 
-  profileImage:{
+  profileImage: {
     width: "100%",
     height: "100%",
     resizeMode: "cover"
   },
 
-  card: {
-    backgroundColor: "#F5F5F5",
-    padding: 15,
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20
+  },
+
+  searchBar: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    height: 50
+  },
+
+  searchInput: {
+    flex: 1,
+    marginLeft: 10
+  },
+
+  filterRow: {
+    flexDirection: "row",
+    marginTop: 15
+  },
+
+  filterChip: {
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    marginRight: 10
+  },
+
+  filterChipActive: {
+    backgroundColor: "#007A6D",
+  },
+
+  filterText: {
+    color: "gray",
+    fontSize: 12,
+  },
+
+  filterTextActive: {
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  cardContainer: {
+    height: 500,
+    backgroundColor: "#FFFFFF",
+    padding: 10,
     borderRadius: 12,
     marginTop: 20,
+  },
+
+  cardContainerHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 5,
+    marginBottom: 15
+  },
+
+  card: {
+    backgroundColor: "#F4FBFA",
+    borderRadius: 12,
+    marginTop: 15,
     height: 200
+  },
+
+  imageBackground: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+
+  overlay: {
+    backgroundColor: "#3232327a",
+    padding: 12,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
 
   cardTitle: {
     fontSize: 18,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white",
   },
 
   cardDescription: {
-    color: "gray",
-    marginTop: 5
+
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+
+  textDescription: {
+    color: "#ddd",
+  },
+
+  textPrice: {
+    fontWeight: "bold",
+    color: "#fff",
   }
 });
