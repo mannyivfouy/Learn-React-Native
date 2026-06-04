@@ -1,10 +1,14 @@
-import LoginScreen from './src/screens/LoginScreen';
-import SignupScreen from './src/screens/SignupScreen';
-import HomeScreen from './src/screens/HomeScreen';
+  import { SafeAreaProvider } from 'react-native-safe-area-context';
+  import { NavigationContainer } from '@react-navigation/native';
+  import RootNavigator from './src/navigation/RootNavigator';
 
 
-export default function App() {  
-  // return <LoginScreen />;
-  // return <SignupScreen />
-  return <HomeScreen/>
-}
+  export default function App() {
+    return (
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    )
+  }

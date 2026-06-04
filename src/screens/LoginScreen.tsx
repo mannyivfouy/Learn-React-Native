@@ -1,6 +1,9 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LoginScreen() {
+  const navigation = useNavigation<any>();
+
   return (
     <View style={style.container}>
       <Text style={style.title}>Login</Text>
@@ -9,7 +12,7 @@ export default function LoginScreen() {
       <TextInput placeholder="Email" style={style.input}></TextInput>
       <TextInput placeholder="Password" style={style.input}></TextInput>
 
-      <TouchableOpacity style={style.button}>
+      <TouchableOpacity style={style.button} onPress={() => navigation.replace("MainApp")}>
         <Text style={style.buttonText}> Login </Text>
       </TouchableOpacity>
 
