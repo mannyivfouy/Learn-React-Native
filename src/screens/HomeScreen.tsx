@@ -46,8 +46,8 @@ export default function HomeScreen() {
               </Text>
             </View>
 
-            <View style={styles.profileContainer}>
-              <Image source={require('../../assets/meme.jpg')} style={styles.profileImage} />
+            <View >
+              <Ionicons name="notifications" size={23} color="#007A6D"/>
             </View>
           </View>
           <View>
@@ -104,7 +104,7 @@ export default function HomeScreen() {
               <View key={item.id} style={styles.card}>
                 <ImageBackground source={item.image} style={styles.imageBackground} imageStyle={{ borderRadius: 12 }}>
                   <View style={styles.badge}>
-                    <Ionicons name="navigate" size={18} color="white" />
+                    <Ionicons name="location" size={18} color="white" />
                     <Text style={styles.badgeText}>
                       {item.location}
                     </Text>
