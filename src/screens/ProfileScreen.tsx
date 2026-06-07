@@ -15,8 +15,9 @@ export default function ProfileScreen() {
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerTitle}>
+              <Ionicons name="school" size={30} color="#007A6D" />
               <Text style={styles.title}>
-                Profile
+                UniFind
               </Text>
             </View>
 
@@ -193,7 +194,7 @@ export default function ProfileScreen() {
 
           <View style={styles.logoutContainer}>
             <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.replace("Signup")}>
-              <Ionicons name="log-out" size={18} color="white" />
+              <Ionicons name="log-out" size={22} color="white" />
               <Text style={styles.logoutText}>
                 Logout
               </Text>
@@ -234,6 +235,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#007A6D",
+    marginLeft: 10
   },
 
   profileContainer: {

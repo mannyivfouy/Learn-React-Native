@@ -2,8 +2,10 @@ import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity, ImageBackgr
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 export default function HomeScreen() {
   const [selectedFilter, setSelectedFilter] = useState("All");
+  const navigation = useNavigation<any>();
   const universities = [
     {
       id: 1,
@@ -35,24 +37,28 @@ export default function HomeScreen() {
   ]
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: "#CDECE7"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#CDECE7" }}>
+      <View style={styles.header}>
+        <View style={styles.headerTitle}>
+          <Ionicons name="school" size={30} color="#007A6D" />
+          <Text style={styles.appTitle}>
+            UniFind
+          </Text>
+        </View>
+
+        <View >
+          <Ionicons name="notifications" size={23} color="#007A6D" />
+        </View>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <View style={styles.container}>
-          <View style={styles.header}>
-            <View style={styles.headerTitle}>
-              <Ionicons name="school" size={30} color="#007A6D" />
-              <Text style={styles.title}>
-                UniFind
-              </Text>
-            </View>
 
-            <View >
-              <Ionicons name="notifications" size={23} color="#007A6D"/>
-            </View>
-          </View>
           <View>
+            <Text style={styles.title}>
+              Discover Your Future
+            </Text>
             <Text style={styles.subtitle}>
-              Discover top academic institutions, compare courses, and start your educational journey with confidence.
+              Compare Universities, Institutes, and Scolaship in Cambodia
             </Text>
           </View>
 
@@ -63,18 +69,20 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          <View style={styles.filterRow}>
-            {["All", "University", "Institute"].map((item) => (
-              <TouchableOpacity
-                key={item}
-                style={[styles.filterChip, selectedFilter === item && styles.filterChipActive]} onPress={() => setSelectedFilter(item)}
-              >
-                <Text style={[styles.filterText, selectedFilter === item && styles.filterTextActive]}>
-                  {item}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.filterRow}>
+              {["All", "University", "Institute", "Public", "Private"].map((item) => (
+                <TouchableOpacity
+                  key={item}
+                  style={[styles.filterChip, selectedFilter === item && styles.filterChipActive]} onPress={() => setSelectedFilter(item)}
+                >
+                  <Text style={[styles.filterText, selectedFilter === item && styles.filterTextActive]}>
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </ScrollView>
 
           <View style={styles.cardContainer}>
             <View style={styles.cardContainerHeader}>
@@ -86,7 +94,7 @@ export default function HomeScreen() {
                 </Text>
               </View>
 
-              <TouchableOpacity style={styles.cardHeader}>
+              <TouchableOpacity style={styles.cardHeader} onPress={() => navigation.navigate("Search")}>
                 <Text style={{ color: "#007A6D", fontWeight: "600" }}>
                   Explore More
                 </Text>
@@ -141,14 +149,16 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: '#CDECE7',
-    padding: 20,    
+    padding: 20,
   },
 
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20
+    marginBottom: 10,
+    paddingHorizontal: 20,
+
   },
 
   headerTitle: {
@@ -156,36 +166,25 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
-  title: {
+  appTitle: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#007A6D",
     marginLeft: 10
   },
 
+  title: {
+    fontSize: 28,
+    fontWeight: "500",
+    color: "#007A6D",
+  },
+
   subtitle: {
     color: "gray",
-    fontStyle: "italic",
+    // fontStyle: "italic",
     width: 280,
     fontSize: 12,
-  },
-
-  profileContainer: {
-    width: 40,
-    height: 40,
-    backgroundColor: "#F5F5F5",
-    borderColor: "#007A6D",
-    borderWidth: 2,
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden"
-  },
-
-  profileImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover"
+    marginTop: 5
   },
 
   searchContainer: {
@@ -211,7 +210,7 @@ const styles = StyleSheet.create({
 
   filterRow: {
     flexDirection: "row",
-    marginTop: 15
+    marginTop: 15,
   },
 
   filterChip: {
@@ -219,7 +218,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: "#FFFFFF",
     borderRadius: 20,
-    marginRight: 10
+    marginRight: 10,
+
+    borderWidth: 1,
+    borderColor: "#E5E7EB"
   },
 
   filterChipActive: {

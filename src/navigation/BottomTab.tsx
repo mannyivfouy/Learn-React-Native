@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomTab() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route }) => ({        
         headerShown: false,
         tabBarActiveTintColor: "#007A6D",
         tabBarInactiveTintColor: "gray",
