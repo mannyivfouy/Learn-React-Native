@@ -6,6 +6,16 @@ import { useNavigation } from "@react-navigation/native";
 export default function HomeScreen() {
   const [selectedFilter, setSelectedFilter] = useState("All");
   const navigation = useNavigation<any>();
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  const toggleFavorite = (id: number) => {
+    setFavorites((prev) =>
+      prev.includes(id)
+        ? prev.filter((favId) => favId !== id)
+        : [...prev, id]
+    )
+  }
+
   const universities = [
     {
       id: 1,
@@ -111,12 +121,23 @@ export default function HomeScreen() {
             {universities.map((item) => (
               <View key={item.id} style={styles.card}>
                 <ImageBackground source={item.image} style={styles.imageBackground} imageStyle={{ borderRadius: 12 }}>
-                  <View style={styles.badge}>
-                    <Ionicons name="location" size={18} color="white" />
-                    <Text style={styles.badgeText}>
-                      {item.location}
-                    </Text>
+                  <View style={styles.cardButtonHeader}>
+
+                    <View style={styles.badge}>
+                      <Ionicons name="location" size={18} color="white" />
+                      <Text style={styles.badgeText}>
+                        {item.location}
+                      </Text>
+
+                    </View>
+
+                    <View style={styles.favoriteButtonContainer}>
+                      <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
+                        <Ionicons name={favorites.includes(item.id) ? "heart" : "heart-outline"} size={18} color={"#DC2626"} />
+                      </TouchableOpacity>
+                    </View>
                   </View>
+
 
                   <View style={styles.overlay}>
                     <Text style={styles.cardTitle}>
@@ -299,10 +320,17 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 
-  badge: {
+  cardButtonHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     position: "absolute",
     top: 10,
     left: 10,
+    right: 10
+  },
+
+  badge: {
     backgroundColor: "#007A6D",
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -317,4 +345,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 5
   },
+
+  favoriteButtonContainer: {
+    backgroundColor: "#FFF",
+    padding: 5,
+    borderRadius: 100
+  }
 });
