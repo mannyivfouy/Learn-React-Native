@@ -46,6 +46,19 @@ export default function HomeScreen() {
     }
   ]
 
+  const topRateInstitutes = [
+    {
+      id: 1,
+      title: "SETEC Institute",
+      type: "Institute",
+      priceRange: "580$ - 1080$",
+      image: require("../../assets/setec.webp"),
+      badge: "Popular",
+      location: "Phnom Penh",
+      rate: 8.9
+    }
+  ]
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#CDECE7" }}>
       <View style={styles.header}>
@@ -68,7 +81,7 @@ export default function HomeScreen() {
               Discover Your Future
             </Text>
             <Text style={styles.subtitle}>
-              Compare Universities, Institutes, and Scolaship in Cambodia
+              Compare Universities, Institutes, and Scholarships in Cambodia
             </Text>
           </View>
 
@@ -118,44 +131,45 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
 
-            {universities.map((item) => (
-              <View key={item.id} style={styles.card}>
-                <ImageBackground source={item.image} style={styles.imageBackground} imageStyle={{ borderRadius: 12 }}>
-                  <View style={styles.cardButtonHeader}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 15 }}>
+              {universities.map((item) => (
+                <View key={item.id} style={styles.card}>
+                  <ImageBackground source={item.image} style={styles.imageBackground} imageStyle={{ borderRadius: 12 }}>
+                    <View style={styles.cardButtonHeader}>
 
-                    <View style={styles.badge}>
-                      <Ionicons name="location" size={18} color="white" />
-                      <Text style={styles.badgeText}>
-                        {item.location}
-                      </Text>
+                      <View style={styles.badge}>
+                        <Ionicons name="location" size={18} color="white" />
+                        <Text style={styles.badgeText}>
+                          {item.location}
+                        </Text>
 
+                      </View>
+
+                      <View style={styles.favoriteButtonContainer}>
+                        <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
+                          <Ionicons name={favorites.includes(item.id) ? "heart" : "heart-outline"} size={18} color={"#DC2626"} />
+                        </TouchableOpacity>
+                      </View>
                     </View>
 
-                    <View style={styles.favoriteButtonContainer}>
-                      <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
-                        <Ionicons name={favorites.includes(item.id) ? "heart" : "heart-outline"} size={18} color={"#DC2626"} />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-
-
-                  <View style={styles.overlay}>
-                    <Text style={styles.cardTitle}>
-                      {item.title}
-                    </Text>
-                    <View style={styles.cardDescription}>
-                      <Text style={styles.textDescription}>
-                        {item.type}
+                    <View style={styles.overlay}>
+                      <Text style={styles.cardTitle}>
+                        {item.title}
                       </Text>
+                      <View style={styles.cardDescription}>
+                        <Text style={styles.textDescription}>
+                          {item.type}
+                        </Text>
 
-                      <Text style={styles.textPrice}>
-                        {item.priceRange}
-                      </Text>
+                        <Text style={styles.textPrice}>
+                          {item.priceRange}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                </ImageBackground>
-              </View>
-            ))}
+                  </ImageBackground>
+                </View>
+              ))}
+            </ScrollView>
           </View>
         </View>
       </ScrollView>
@@ -279,6 +293,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 15,
     height: 200,
+    width: 300,
+    // marginRight: 20,
+    // overflow: "hidden"
   },
 
   cardHeader: {
@@ -350,5 +367,41 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     padding: 5,
     borderRadius: 100
+  },
+
+  topRateContainer: {
+    // backgroundColor: "red",
+    marginTop: 20,
+    borderRadius: 12,
+    padding: 10
+  },
+
+  topRateTitleText: {
+    fontWeight: 500,
+    color: "#007A6D",
+    fontSize: 28,
+    marginBottom: 10
+  },
+
+  topRateCard: {
+    backgroundColor: "#FFF",
+    padding: 10,
+    borderRadius: 12,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+
+  topRateImageContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 12,
+    backgroundColor: "gray",
+    marginRight: 10
+  },
+
+  topRateTextContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   }
 });
